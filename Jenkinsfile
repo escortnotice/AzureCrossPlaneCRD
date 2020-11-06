@@ -7,7 +7,10 @@ agent any
           echo("Crossplane")
           script { 
             currentBuild.displayName = "${BUILD_NUMBER}"
-            currentBuild.description = "${GIT_COMMIT}"        
+            currentBuild.description = "${GIT_COMMIT}"    
+            sh '''#!/bin/bash 
+			kubectl apply -f create-SG-protocol.yaml
+			'''
         }
       }
     } 
