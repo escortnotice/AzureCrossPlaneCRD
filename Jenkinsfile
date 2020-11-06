@@ -10,9 +10,10 @@ agent any
             currentBuild.description = "${GIT_COMMIT}"    
             sh '''#!/bin/bash
 	    alias kubectl=/usr/local/bin/kubectl
-	    kubectl config view
 	    echo "current context ---- "
 	    kubectl config current-context
+	    echo "Applying crd ---- "
+	    kubectl apply -f create-SG-protocol.yaml
 		'''
         }
       }
