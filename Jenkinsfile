@@ -7,7 +7,7 @@ agent any
           echo("Crossplane")
           script { 
             currentBuild.displayName = "${BUILD_NUMBER}"
-            currentBuild.description = "${BRANCH} - ${GIT_COMMIT}"        
+            currentBuild.description = "${GIT_COMMIT}"        
         }
       }
     } 
