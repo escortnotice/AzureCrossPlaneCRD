@@ -11,7 +11,7 @@ agent any
             sh '''#!/bin/bash
 	    alias kubectl=/usr/local/bin/kubectl
 	    kubectl config view
-	    echo ("current context ---- ")
+	    echo "current context ---- "
 	    kubectl config current-context
 		'''
         }
