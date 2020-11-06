@@ -8,8 +8,9 @@ agent any
           script { 
             currentBuild.displayName = "${BUILD_NUMBER}"
             currentBuild.description = "${GIT_COMMIT}"    
-            sh '''#!/bin/bash 
-	    kubectl get pod
+            sh '''#!/bin/bash
+	    alias kubectl=/usr/local/bin/kubectl
+	    kubectl get pods -n crossplane-system
 		'''
         }
       }
