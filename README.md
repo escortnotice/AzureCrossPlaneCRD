@@ -1,2 +1,2 @@
 # AzureCrossPlaneCRD
-Added jenkinsfile
+Added jenkinsfile manually
