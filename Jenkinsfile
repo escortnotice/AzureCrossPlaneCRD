@@ -1,7 +1,5 @@
 pipeline {
 agent any
-  tools {
-  }
     stages {
     stage('Set Build Name') {
       steps { 
