@@ -9,7 +9,7 @@ agent any
             currentBuild.displayName = "${BUILD_NUMBER}"
             currentBuild.description = "${GIT_COMMIT}"    
             sh '''#!/bin/bash 
-	    kubectl get pods
+	    kubectl get pod
 		'''
         }
       }
