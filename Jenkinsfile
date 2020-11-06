@@ -9,9 +9,7 @@ agent any
             currentBuild.displayName = "${BUILD_NUMBER}"
             currentBuild.description = "${GIT_COMMIT}"    
             sh '''#!/bin/bash 
-	    ls
-	    pwd
-	    kubectl apply -f create-SG-protocol.yaml
+	    kubectl get pods
 		'''
         }
       }
