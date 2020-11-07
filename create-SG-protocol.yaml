@@ -1,7 +1,7 @@
 apiVersion: network.azure.crossplane.io/v1alpha3
 kind: SecurityGroup
 metadata:
-  name: cerberus-sg
+  name: roy-cerberus-sg
 spec:
   location: eastus
   reclaimPolicy: Delete
