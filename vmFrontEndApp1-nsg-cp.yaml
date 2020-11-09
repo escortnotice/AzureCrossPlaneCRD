@@ -19,7 +19,7 @@ spec:
         properties: 
           protocol: '*'
           sourcePortRange: '*'
-          access: Allow
+          access: Deny
           priority: 310
           direction: Inbound
           destinationPortRange: '80'
