@@ -25,3 +25,13 @@ spec:
           destinationPortRange: '80'
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
+      - name: 'DenyAll'
+        properties: 
+          protocol: '*'
+          sourcePortRange: '*'
+          access: Deny
+          priority: 4000
+          direction: Inbound
+          destinationPortRange: *
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
