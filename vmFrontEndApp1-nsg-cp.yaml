@@ -1,37 +1,40 @@
+--- 
 apiVersion: network.azure.crossplane.io/v1alpha3
 kind: SecurityGroup
-metadata:
+metadata: 
   name: vm-front-end-app1-nsg-cp
-status:
-  id: d5e6f50a
-  resourceGuid: d5e6f50a-5204-4db1-b9de-c6b17240417d
-spec:
+spec: 
   location: eastus
+  properties: 
+    securityRules: 
+      - 
+        name: Port_80
+        properties: 
+          access: Deny
+          destinationAddressPrefix: "*"
+          destinationPortRange: "80"
+          direction: Inbound
+          priority: 310
+          protocol: "*"
+          sourceAddressPrefix: "*"
+          sourcePortRange: "*"
+      - 
+        name: DenyAll
+        properties: 
+          access: Deny
+          destinationAddressPrefix: "*"
+          destinationPortRange: "*"
+          direction: Inbound
+          priority: 4000
+          protocol: "*"
+          sourceAddressPrefix: "*"
+          sourcePortRange: "*"
+  providerRef: 
+    name: azure-provider
   reclaimPolicy: Delete
   resourceGroupName: cerberus_squad_demo_9nov20
-  providerRef:
-    name: azure-provider
-  resourceGroupNameRef:
+  resourceGroupNameRef: 
     name: cerberus_squad_demo_9nov20
-  properties:
-    securityRules:
-      - name: 'Port_80'
-        properties: 
-          protocol: '*'
-          sourcePortRange: '*'
-          access: Deny
-          priority: 310
-          direction: Inbound
-          destinationPortRange: '80'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-      - name: 'DenyAll'
-        properties: 
-          protocol: '*'
-          sourcePortRange: '*'
-          access: Deny
-          priority: 4000
-          direction: Inbound
-          destinationPortRange: *
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
+status: 
+  id: d5e6f50a
+  resourceGuid: d5e6f50a-5204-4db1-b9de-c6b17240417d
