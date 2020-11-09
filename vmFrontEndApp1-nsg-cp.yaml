@@ -10,7 +10,7 @@ spec:
       - 
         name: Port_80
         properties: 
-          access: Allow
+          access: Deny
           destinationAddressPrefix: "*"
           destinationPortRange: "80"
           direction: Inbound
