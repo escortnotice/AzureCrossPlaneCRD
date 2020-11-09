@@ -1,0 +1,27 @@
+apiVersion: network.azure.crossplane.io/v1alpha3
+kind: SecurityGroup
+metadata:
+  name: vm-front-end-app1-nsg-cp
+status:
+  id: d5e6f50a
+  resourceGuid: d5e6f50a-5204-4db1-b9de-c6b17240417d
+spec:
+  location: eastus
+  reclaimPolicy: Delete
+  resourceGroupName: cerberus_squad_demo_9nov20
+  providerRef:
+    name: azure-provider
+  resourceGroupNameRef:
+    name: cerberus_squad_demo_9nov20
+  properties:
+    securityRules:
+      - name: 'Port_80'
+        properties: 
+          protocol: '*'
+          sourcePortRange: '*'
+          access: Allow
+          priority: 310
+          direction: Inbound
+          destinationPortRange: '80'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
