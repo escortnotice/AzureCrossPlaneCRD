@@ -1,2 +1,2 @@
 # AzureCrossPlaneCRD
-CD through jenkinsfile
+CD test through jenkinsfile
