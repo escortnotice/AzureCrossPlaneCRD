@@ -13,7 +13,10 @@ agent any
 	    echo "current context ---- "
 	    kubectl config current-context
 	    echo "Applying crd ---- "
-	    kubectl apply -f create-SG-protocol.yaml
+	    kubectl apply -f definition.yaml
+	    kubectl apply -f composition.yaml
+	     kubectl apply -f claim.yaml
+	     
 		'''
         }
       }
