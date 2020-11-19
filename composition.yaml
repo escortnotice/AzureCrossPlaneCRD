@@ -72,4 +72,4 @@ spec:
               matchControllerRef: true
             properties:
               startIpAddress: 0.0.0.0
-              endIpAddress: 255.255.255.254
+              endIpAddress: 255.255.255.250
