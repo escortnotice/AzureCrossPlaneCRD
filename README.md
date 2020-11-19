@@ -1,3 +1,3 @@
 # AzureCrossPlaneCRD
 Configuring infrustructure in Azure.
-CD test through jenkinsfile...
+CD test through jenkinsfile..
