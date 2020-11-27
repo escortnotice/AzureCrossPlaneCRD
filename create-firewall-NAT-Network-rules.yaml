@@ -1,0 +1,61 @@
+apiVersion: network.azure.crossplane.io/v1alpha3
+kind: AzureFirewall
+metadata:
+  name: cerb-fw-infra
+spec:
+  location: centralus
+  reclaimPolicy: Delete
+  resourceGroupName: cerberus-rg-subhra
+  providerRef:
+    name: azure-provider
+  resourceGroupNameRef:
+    name: cerberus-rg-subhra
+  name: cerb-fw-infra
+  type: Microsoft.Network/azureFirewalls
+  properties:
+    threatIntelMode: Alert
+    ipConfigurations:
+      - name: cerb-fw-pib-ip
+        properties: 
+          privateIPAddress: '10.2.5.5'
+          subnet:
+            id: /subscriptions/f4122767-4f74-4e66-96cc-fe9604c36ada/resourceGroups/cerberus-rg-subhra/providers/Microsoft.Network/virtualNetworks/cerb-vnet-1/subnets/azurefirewallsubnet
+          publicIPAddress:
+            id: /subscriptions/f4122767-4f74-4e66-96cc-fe9604c36ada/resourceGroups/cerberus-rg-subhra/providers/Microsoft.Network/publicIPAddresses/cerb-fw-pib-ip
+    natRuleCollections:
+      - name: cerb-fw-nat-rule
+        properties:
+          priority: 110
+          action: Dnat 
+          rules: 
+            - name: allowgatewayssh
+              description: 'Some SSH DNAT actions'
+              sourceAddresses: ['*']
+              destinationAddresses: ['52.154.216.75']
+              destinationPorts: ['22']
+              protocols: ['TCP']
+              translatedAddress: '10.2.4.4'
+              translatedPort: '22'
+            - name: allowgateway8091
+              description: 'Some port DNAT actions'
+              sourceAddresses: ['*']
+              destinationAddresses: ['52.154.216.75']
+              destinationPorts: ['8091']
+              protocols: ['TCP']
+              translatedAddress: '10.2.4.4'
+              translatedPort: '8091'
+              
+            - name: allowgateway
+              description: 'Some http DNAT actions'
+              sourceAddresses: ['*']
+              destinationAddresses: ['52.154.216.75']
+              destinationPorts: ['80']
+              protocols: ['TCP']
+              translatedAddress: '10.2.4.4'
+              translatedPort: '80'
+            
+
+
+
+
+    

@@ -1,0 +1,69 @@
+---
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: CompositeResourceDefinition
+metadata:
+  name: compositeinfrainstances.network.example.org
+spec:
+  group: network.example.org
+  names:
+    kind: CompositeInfraInstance
+    plural: compositeinfrainstances
+  claimNames:
+    kind: InfraInstance
+    plural: infrainstances
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  location:
+                    type: string
+                  rgName:
+                    type: string
+                  vnetName:
+                    type: string
+                  s1Name:
+                    type: string
+                  s2Name:
+                    type: string
+                  s3Name:
+                    type: string
+                  s4Name:
+                    type: string
+                  sfirewallName:
+                    type: string
+                  nsg1Name:
+                    type: string
+                  nsg2Name:
+                    type: string	
+                  nsg3Name:
+                    type: string
+                  storageGB:
+                    type: integer
+                  dbName:
+                    type: string                    
+                required:
+                  - location
+                  - rgName
+                  - vnetName
+                  - s1Name
+                  - s2Name
+                  - s3Name
+                  - s4Name
+                  - sfirewallName
+                  - nsg1Name
+                  - nsg2Name
+                  - nsg3Name
+                  - storageGB
+                  - dbName
+            required:
+              - parameters
