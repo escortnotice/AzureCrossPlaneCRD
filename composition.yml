@@ -1,0 +1,251 @@
+---
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: Composition
+metadata:
+  name: compositeinfrainstances.azure.network.example.org
+  labels:
+    provider: azure
+   # guide: quickstart
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: network.example.org/v1alpha1
+    kind: CompositeInfraInstance
+  resources:
+    - base:
+        apiVersion: azure.crossplane.io/v1alpha3
+        kind: ResourceGroup
+        spec: {}
+      patches:
+      - fromFieldPath: "metadata.labels"
+        toFieldPath: "metadata.labels"
+      - fromFieldPath: "spec.parameters.rgName"
+        toFieldPath: "metadata.name"
+      - fromFieldPath: "spec.parameters.location"
+        toFieldPath: "spec.location"
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: VirtualNetwork        
+        spec:
+          properties:
+            addressSpace:
+              addressPrefixes:
+                - 10.2.0.0/16
+
+      patches:
+        - fromFieldPath: "spec.parameters.location"
+          toFieldPath: "spec.location"
+        - fromFieldPath: "spec.parameters.vnetName"
+          toFieldPath: "metadata.name"
+        - fromFieldPath: "spec.parameters.rgName"
+          toFieldPath: "spec.resourceGroupNameRef.name"          
+           
+          
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: Subnet
+        spec:
+          properties:
+            addressPrefix: 10.2.1.0/24
+      patches:
+        - fromFieldPath: "spec.parameters.location"
+          toFieldPath: "spec.location"
+        - fromFieldPath: "spec.parameters.s1Name"
+          toFieldPath: "metadata.name"
+        - fromFieldPath: "spec.parameters.rgName"
+          toFieldPath: "spec.resourceGroupNameRef.name" 
+        - fromFieldPath: "spec.parameters.vnetName"
+          toFieldPath: "spec.virtualNetworkNameRef.name" 
+          
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: Subnet
+        spec:
+          properties:
+            addressPrefix: 10.2.2.0/24
+      patches:
+        - fromFieldPath: "spec.parameters.location"
+          toFieldPath: "spec.location"
+        - fromFieldPath: "spec.parameters.s2Name"
+          toFieldPath: "metadata.name"
+        - fromFieldPath: "spec.parameters.rgName"
+          toFieldPath: "spec.resourceGroupNameRef.name" 
+        - fromFieldPath: "spec.parameters.vnetName"
+          toFieldPath: "spec.virtualNetworkNameRef.name" 
+          
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: Subnet
+        spec:
+          properties:
+            addressPrefix: 10.2.3.0/24
+      patches:
+        - fromFieldPath: "spec.parameters.location"
+          toFieldPath: "spec.location"
+        - fromFieldPath: "spec.parameters.s3Name"
+          toFieldPath: "metadata.name"
+        - fromFieldPath: "spec.parameters.rgName"
+          toFieldPath: "spec.resourceGroupNameRef.name" 
+        - fromFieldPath: "spec.parameters.vnetName"
+          toFieldPath: "spec.virtualNetworkNameRef.name"
+          
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: Subnet
+        spec:
+          properties:
+            addressPrefix: 10.2.4.0/24
+      patches:
+        - fromFieldPath: "spec.parameters.location"
+          toFieldPath: "spec.location"
+        - fromFieldPath: "spec.parameters.s4Name"
+          toFieldPath: "metadata.name"
+        - fromFieldPath: "spec.parameters.rgName"
+          toFieldPath: "spec.resourceGroupNameRef.name" 
+        - fromFieldPath: "spec.parameters.vnetName"
+          toFieldPath: "spec.virtualNetworkNameRef.name"
+          
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: Subnet
+        spec:
+          properties:
+            addressPrefix: 10.2.5.0/24
+      patches:
+        - fromFieldPath: "spec.parameters.location"
+          toFieldPath: "spec.location"
+        - fromFieldPath: "spec.parameters.sfirewallName"
+          toFieldPath: "metadata.name"
+        - fromFieldPath: "spec.parameters.rgName"
+          toFieldPath: "spec.resourceGroupNameRef.name" 
+        - fromFieldPath: "spec.parameters.vnetName"
+          toFieldPath: "spec.virtualNetworkNameRef.name"
+          
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: SecurityGroup
+        spec:
+          properties:
+            securityRules:
+              - name: inrule
+                properties: 
+                  protocol: '*'
+                  sourcePortRange: '*'
+                  access: Allow
+                  priority: 130
+                  direction: Inbound
+                  destinationPortRange: '22'
+                  sourceAddressPrefix: '*'
+                  destinationAddressPrefix: '*'
+      patches:
+      - fromFieldPath: "metadata.labels"
+        toFieldPath: "metadata.labels"
+      - fromFieldPath: "spec.parameters.location"
+        toFieldPath: "spec.location"
+      - fromFieldPath: "spec.parameters.rgName"
+        toFieldPath: "spec.resourceGroupName"
+      - fromFieldPath: "spec.parameters.nsg1Name"
+        toFieldPath: "metadata.name"
+        
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: SecurityGroup
+        spec:
+          properties:
+            securityRules:
+              - name: infrontrule
+                properties: 
+                  protocol: '*'
+                  sourcePortRange: '*'
+                  access: Allow
+                  priority: 120
+                  direction: Inbound
+                  destinationPortRanges: ['22','80']
+                  sourceAddressPrefix: '*'
+                  destinationAddressPrefix: '*'
+      patches:
+      - fromFieldPath: "metadata.labels"
+        toFieldPath: "metadata.labels"
+      - fromFieldPath: "spec.parameters.location"
+        toFieldPath: "spec.location"
+      - fromFieldPath: "spec.parameters.rgName"
+        toFieldPath: "spec.resourceGroupName"
+      - fromFieldPath: "spec.parameters.nsg2Name"
+        toFieldPath: "metadata.name"
+        
+    - base:
+        apiVersion: network.azure.crossplane.io/v1alpha3
+        kind: SecurityGroup
+        spec:
+          properties:
+            securityRules:
+              - name: inrule
+                properties: 
+                  protocol: '*'
+                  sourcePortRange: '*'
+                  access: Allow
+                  priority: 130
+                  direction: Inbound
+                  destinationPortRanges: ['22','80','5432','8091']
+                  sourceAddressPrefix: '*'
+                  destinationAddressPrefix: '*'
+      patches:
+      - fromFieldPath: "metadata.labels"
+        toFieldPath: "metadata.labels"
+      - fromFieldPath: "spec.parameters.location"
+        toFieldPath: "spec.location"
+      - fromFieldPath: "spec.parameters.rgName"
+        toFieldPath: "spec.resourceGroupName"
+      - fromFieldPath: "spec.parameters.nsg3Name"
+        toFieldPath: "metadata.name"
+        
+    - base:
+        apiVersion: database.azure.crossplane.io/v1beta1
+        kind: PostgreSQLServer
+        metadata:
+          name: cerberus-postgress
+        spec:
+          forProvider:
+            administratorLogin: myadmin
+            resourceGroupNameSelector:
+              matchControllerRef: true
+            location: Central US
+            sslEnforcement: Disabled
+            version: "9.6"
+            sku:
+              tier: GeneralPurpose
+              capacity: 2
+              family: Gen5
+          writeConnectionSecretToRef:
+            namespace: crossplane-system
+      patches:
+        - fromFieldPath: "metadata.uid"
+          toFieldPath: "spec.writeConnectionSecretToRef.name"
+          transforms:
+            - type: string
+              string:
+                fmt: "%s-postgresql"
+        - fromFieldPath: "spec.parameters.storageGB"
+          toFieldPath: "spec.forProvider.storageProfile.storageMB"
+          transforms:
+            - type: math
+              math:
+                multiply: 1024
+      connectionDetails:
+        - name: port
+          value: "5432"
+          
+    - base:
+        apiVersion: database.azure.crossplane.io/v1alpha3
+        kind: PostgreSQLServerFirewallRule
+        spec:
+          name: cerberus-postgressrule
+          forProvider:
+            serverNameSelector:
+              matchControllerRef: true
+            resourceGroupNameSelector:
+              matchControllerRef: true
+            properties:
+              startIpAddress: 0.0.0.0
+              endIpAddress: 255.255.255.254
+              

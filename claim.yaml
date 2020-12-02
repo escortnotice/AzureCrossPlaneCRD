@@ -1,0 +1,25 @@
+apiVersion: network.example.org/v1alpha1
+kind: InfraInstance
+metadata:
+  name: cerberus-infra
+  namespace: default
+spec:
+  parameters:
+    rgName: "cerberus-rg-subhra"
+    location: "centralus"
+    vnetName: "cerb-vnet-1"
+    s1Name: "subnet-front"
+    s2Name: "subnet-back"
+    s3Name: "subnet-jbox"
+    s4Name: "subnet-app-gateway" 
+    sfirewallName: "azurefirewallsubnet" 
+    nsg1Name: "nsg-jumpbox"
+    nsg2Name: "nsg-front"
+    nsg3Name: "nsg-back"
+    dbName: "postgres-db"
+    storageGB: 20
+  compositionSelector:
+    matchLabels:
+      provider: azure
+  writeConnectionSecretToRef:
+    name: postress-secret
