@@ -5,7 +5,7 @@ metadata:
   namespace: default
 spec:
   parameters:
-    rgName: "cerberus-rg-subhra"
+    rgName: "cerberus-rg-shubham"
     location: "centralus"
     vnetName: "cerb-vnet-1"
     s1Name: "subnet-front"
